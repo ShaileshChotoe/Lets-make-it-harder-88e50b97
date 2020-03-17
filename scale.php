@@ -2,7 +2,6 @@
 
 class Wiskunde 
 {
-
     function add($a, $b) {
         return $a + $b;
     }
@@ -21,7 +20,6 @@ class Wiskunde
 
 class WeegSchaal extends Wiskunde 
 {
-
     public $left_weight; 
     public $right_weight; 
 
@@ -145,7 +143,6 @@ class WeegSchaal extends Wiskunde
 
 class Program 
 {
-
     public $inputHandler;
     public $weegSchaal;
 
@@ -171,10 +168,9 @@ class Program
 
 class InputHandler 
 {
-
-    private $input1;
-    private $input2;
-    private $input3;
+    public $input1;
+    public $input2;
+    public $input3;
 
     function __construct() {
         global $argv;
