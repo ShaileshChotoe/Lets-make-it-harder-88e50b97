@@ -1,6 +1,6 @@
 <?php
 
-class Wiskunde 
+class Wiskunde
 {
     function add($a, $b) {
         return $a + $b;
@@ -18,7 +18,7 @@ class Wiskunde
     }
 }
 
-class WeegSchaal extends Wiskunde 
+class WeegSchaal extends Wiskunde
 {
     public $left_weight; 
     public $right_weight; 
@@ -141,7 +141,7 @@ class WeegSchaal extends Wiskunde
 
 }
 
-class Program 
+class Program
 {
     public $inputHandler;
     public $weegSchaal;
@@ -166,7 +166,7 @@ class Program
     }
 }
 
-class InputHandler 
+class InputHandler
 {
     public $input1;
     public $input2;
