@@ -1,15 +1,20 @@
 <?php
 
-class Wiskunde{
-    function add($a, $b) {
+//Wiskundige berekeneningen
+class Wiskunde
+{
+    function add($a, $b)
+    {
         return $a + $b;
     }
 
-    function substract($a, $b) {
+    function substract($a, $b)
+    {
         return $a - $b;
     }
 
-    function getOperator($a, $c) {
+    function getOperator($a, $c)
+    {
         if ($c <= $a) {
             return '-';
         }
@@ -17,7 +22,9 @@ class Wiskunde{
     }
 }
 
-class WeegSchaal extends Wiskunde{
+//Slimme weegschaal
+class WeegSchaal extends Wiskunde
+{
     public $left_weight; 
     public $right_weight; 
 
@@ -27,7 +34,8 @@ class WeegSchaal extends Wiskunde{
 
     public $other_weights; 
 
-    function update() {
+    function update()
+    {
 
         $this->calcDiffrence();
 
@@ -47,32 +55,38 @@ class WeegSchaal extends Wiskunde{
         }
     }
 
-    function setMesssage($message) {
+    function setMesssage($message)
+    {
         $this->log_message = $this->log_message . $message;
     }
 
-    function calcDiffrence() {
+    function calcDiffrence()
+    {
         $this->diffrence_in_weights = abs($this->substract($this->left_weight, $this->right_weight));
         return $this->diffrence_in_weights;
     }
 
-    function giveAvailableWeights($availableWeights) {
+    function giveAvailableWeights($availableWeights)
+    {
         $this->other_weights = $availableWeights;
     }
 
-    function setWeight($left, $right) {
+    function setWeight($left, $right)
+    {
         $this->left_weight = $left;
         $this->right_weight = $right;
     }
 
-    function isBalanced() {
+    function isBalanced()
+    {
         if ($this->left_weight == $this->right_weight) {
             return true;
         }
         return false;
     }
 
-    function searchWeightInArray($number) {
+    function searchWeightInArray($number)
+    {
         foreach ($this->other_weights as $weight) {
             if ($number == $weight) {
                 return $weight;
@@ -81,14 +95,16 @@ class WeegSchaal extends Wiskunde{
         return false;
     }
 
-    function makeSingleArr($input, $weight, $opp) {
+    function makeSingleArr($input, $weight, $opp)
+    {
         $sum = $this->$opp($input, $weight);
         $operator = $this->getOperator($input, $sum);
         $single = array('weight' => $input, 'opperator' => $operator, 'option' => $weight, 'result' => $sum);
         return $single;
     }
 
-    function makeArray($input) {
+    function makeArray($input)
+    {
         $array = array();
         foreach ($this->other_weights as $weight) {
             array_push($array, $this->makeSingleArr($input, $weight, 'add'));
@@ -99,7 +115,8 @@ class WeegSchaal extends Wiskunde{
         return $array;
     }
 
-    function makeCombinedArray($left_arr, $right_arr) {
+    function makeCombinedArray($left_arr, $right_arr)
+    {
         $array = array();
         for ($i = 0; $i < count($left_arr); $i++) {
             $left = $left_arr[$i];
@@ -116,7 +133,8 @@ class WeegSchaal extends Wiskunde{
         return $array;
     }
 
-    function getMultipleWeights() {
+    function getMultipleWeights()
+    {
         $left_weight_array = $this->makeArray($this->left_weight);
         $right_weight_array = $this->makeArray($this->right_weight);
         $combined_num_arr = $this->makeCombinedArray($left_weight_array, $right_weight_array);
@@ -126,64 +144,76 @@ class WeegSchaal extends Wiskunde{
         return $combined_num_arr;
     }
 
-    function canBalanceWith($callback) {
+    function canBalanceWith($callback)
+    {
         if ($callback) {
             return $callback;
         }
         return false;
     }
 
-    function draw() {
+    function draw()
+    {
         echo $this->log_message;
     }
 
 }
 
-class Program{
+class Program
+{
     public $inputHandler;
     public $weegSchaal;
 
-    function __construct() {
+    function __construct()
+    {
         $this->inputHandler = new InputHandler();
         $this->weegSchaal = new WeegSchaal();
     }
 
-    function init() {
+    function init()
+    {
         $this->inputHandler->init();
         $this->weegSchaal->giveAvailableWeights($this->inputHandler->get("input3"));
         $this->weegSchaal->setWeight($this->inputHandler->get("input1"), $this->inputHandler->get("input2"));
     }
 
-    function update() {
+    function update()
+    {
         $this->weegSchaal->update();
     }
 
-    function draw() {
+    function draw()
+    {
         $this->weegSchaal->draw();
     }
 }
 
-class InputHandler{
+class InputHandler
+{
     public $input1;
     public $input2;
     public $input3;
 
-    function __construct() {
+    function __construct()
+    {
         global $argv;
         $this->input1 = $argv[1];
         $this->input2 = $argv[2];
         $this->input3 = $argv[3];
     }
 
-    function init() {
+    function init()
+    {
         $this->explodeStringToArray($this->input3, ",");
     }
 
-    function explodeStringToArray($string, $char) {
+    function explodeStringToArray($string, $char)
+    {
         $this->input3 = explode($char, $string);
     }
 
-    function get($property_name) {
+    function get($property_name)
+    {
         return $this->$property_name;
     }
 }
